@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_owatrans_rh_ferie,access_owatrans_rh_ferie,model_owatrans_rh_ferie,,1,1,1,1
+access_owatrans_rh_fete_locale,access_owatrans_rh_fete_locale,model_owatrans_rh_fete_locale,,1,1,1,1
+access_owatrans_rh_categorie,access_owatrans_rh_categorie,model_owatrans_rh_categorie,,1,1,1,1
+access_owatrans_presence,access_owatrans_presence,model_owatrans_presence,base.group_user,1,1,1,1
+access_pointage_manuel,access_pointage_manuel,model_pointage_manuel,base.group_user,1,1,1,1
+access_pointage_manuel_template,access_pointage_manuel_template,model_pointage_manuel_template,base.group_user,1,1,1,1
+access_owatrans_import_historique_pointage,access_owatrans_import_historique_pointage,model_owatrans_import_historique_pointage,base.group_user,1,1,1,1

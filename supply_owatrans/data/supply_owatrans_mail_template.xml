@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_edi_owatrans_purchase" model="mail.template">
+            <field name="name">Ordre D'Achat: Envoie Devis</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">${object.company_id.name} Commande (Ref ${object.name or 'n/a' })</field>
+            <field name="email_from">${object.create_uid.email_formatted | safe}</field>
+            <field name="email_to">ousmane_wade@hotmail.com</field>
+            <field name="email_cc">ass010.wade@gmail.com</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Bonjour à tous,
+        
+        <br/><br/>
+        Veuillez trouver ci-joint une demande de prix <strong>${object.name}</strong> 
+        % if object.partner_id:
+            auprés du fournisseur <strong>${object.partner_id.name}</strong>
+        % endif
+
+        .<br/><br/>
+        Merci de valider le devis pour le transformer en commande.
+        
+        <br/><br/>
+        Cordialement,
+    </p>
+</div></field>
+            <field name="report_template" ref="supply_owatrans.report_owatrans_purchase_quotation"/>
+            <field name="report_name">RFQ_${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <!--Email template -->
+        <record id="email_template_edi_owatrans_purchase_done" model="mail.template">
+            <field name="name">Bon de Commande - Envoie Mail</field>
+            <field name="email_from">${(object.create_uid.email and '%s &lt;%s&gt;' % (object.create_uid.name, object.create_uid.email) or '')|safe}</field>
+            <field name="subject">${object.company_id.name} Commande (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="supply_owatrans.model_purchase_order"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="supply_owatrans.report_owatrans_purchase_order"/>
+            <field name="report_name">PO_${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>Cher ${object.partner_id.name}
+% if object.partner_id.parent_id:
+    (<i>${object.partner_id.parent_id.name}</i>)
+% endif
+,</p>
+<p>
+Veuillez trouver ci-joint une <strong>confirmation de commande d'achat ${object.name}</strong>
+% if object.partner_ref:
+    référence: ${object.partner_ref}
+% endif
+% if object.origin:
+    (RFQ origin: ${object.origin})
+% endif
+.Son montant s'élève à <strong>${object.amount_total} ${object.currency_id.name}</strong>
+émanant de ${object.company_id.name}.
+</p>
+<p>N'hésitez pas à répondre à ce mail pour toute demande.</p>
+<p>Cordialement,</p>
+]]></field>
+        </record>
+    </data>
+</odoo>

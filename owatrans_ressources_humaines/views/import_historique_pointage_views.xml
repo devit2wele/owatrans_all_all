@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="owatrans_import_historique_pointage_tree" model="ir.ui.view">
+        <field name="name">owatrans.import.historique.pointage.tree</field>
+        <field name="model">owatrans.import.historique.pointage</field>
+        <field name="arch" type="xml">
+            <tree string="liste des Imports" >
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="datetime" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="owatrans_import_historique_pointage_form" model="ir.ui.view">
+        <field name="name">owatrans.import.historique.pointage.form</field>
+        <field name="model">owatrans.import.historique.pointage</field>
+        <field name="arch" type="xml">
+            <form string="Formulaire d'import">
+                <header>
+                    <button 
+                        name="action_confirmer" 
+                        type="object"
+                        attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                        string="Confirmer"
+                        class="oe_highlight oe_right"
+                    />
+                    <button 
+                        name="action_annuler" 
+                        type="object"
+                        attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                        string="Annuler"
+                        class="oe_highlight oe_right"
+                    />
+
+                    <button 
+                        name="action_roll_back" 
+                        type="object"
+                        attrs="{'invisible': [('state', 'not in', ['confirmer'])]}"
+                        string="Roll Back"
+                        class="oe_highlight oe_right"
+                    />
+                    <button 
+                        name="action_reset_to_draft" 
+                        type="object"
+                        attrs="{'invisible': [('state', 'not in', ['annuler'])]}"
+                        string="Remettre à l'état brouillon"
+                        class="oe_highlight oe_right"
+                    />
+
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="description" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </group>
+                        <group>
+                            <field name="datetime" attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
+                            <field name="user_import" attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
+                            <field name="nombre_de_lignes_importes" attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Liste Pointages" attrs="{'readonly': [('state', 'not in', ['draft'])]}">
+                            <group>
+                                <field name="filename" invisible="1"/>
+                                <!-- <field name="data" filename="filename" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/> -->
+                                <field name="data" filename="filename" />
+                            </group>    
+                            <button 
+                                name="clear_line" 
+                                type="object"
+                                string="Clear Line"
+                                class="oe_highlight oe_right"
+                                attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                            />
+                            <field name="historique_pointage_line" >
+                                <form string="">
+                                    <sheet>
+                                        <group>
+                                            <field name="card_number" readonly="1"/>
+                                            <field name="employee" readonly="1"/>
+                                            <field name="type_pointage" readonly="1"/>
+                                            <field name="date_heure" readonly="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                                <tree delete="false" create="false" limit="10">
+                                    <field name="card_number" readonly="1"/>
+                                    <field name="employee" readonly="1"/>
+                                    <field name="type_pointage" readonly="1"/>
+                                    <field name="date_heure" readonly='1'/>
+                                </tree>
+                            </field>
+                        </page>    
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <act_window 
+        id="action_owatrans_import_historique_pointage"
+        name="Import Historique Pointage"
+        res_model="owatrans.import.historique.pointage"
+        view_mode="tree,form" 
+    />
+
+
+    <menuitem
+        id="owatrans_util" name="Import"
+        parent="hr.menu_hr_root"
+    />
+
+    <menuitem 
+        id="owatrans_import_historique_pointage"
+        name="Import Historique Pointage"
+        parent="owatrans_util" 
+        action="action_owatrans_import_historique_pointage"
+        sequence="1"
+    />
+
+
+
+</odoo>

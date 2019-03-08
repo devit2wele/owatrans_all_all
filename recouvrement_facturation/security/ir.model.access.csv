@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_owatrans_recouvrement_facturation,access_owatrans_recouvrement_facturation,model_owatrans_recouvrement_facturation,,1,1,1,1
+access_mode_paiement,access_mode_paiement,model_mode_paiement,,1,1,1,1

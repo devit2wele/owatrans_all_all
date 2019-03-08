@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="module_category_recouvrement_facturation" model="ir.module.category">
+            <field name="name">Recouvrement/Facturation</field>
+            <field name="sequence">200</field>
+        </record>
+        <record id="owatrans_group_recouvrement_facturation" model="res.groups">
+            <field name="name">Recouvrement</field>
+            <field name="category_id" ref="module_category_recouvrement_facturation"/>
+        </record>
+    </data>
+</odoo>

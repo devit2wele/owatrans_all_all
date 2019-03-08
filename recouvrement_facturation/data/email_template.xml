@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--Email template -->
+        <record id="email_template_alert_date_depot" model="mail.template">
+            <field name="name">Recouvrement - Alerte Date Depot</field>
+            <field name="email_from">mouhawele@gmail.com</field>
+            <field name="subject">Alerte: Date Dépot</field>
+            <field name="email_to">awele@it4life.org</field>
+            <field name="model_id" ref="recouvrement_facturation.model_owatrans_recouvrement_facturation"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<p>Bonjour,</p><br/>
+<p>Alerte date dépot<p><br/>
+<p>Numéro Facture: ${object.num_facture} </p>
+]]></field>
+        </record>
+
+
+        <!--Email template -->
+        <record id="email_template_alert_date_echance" model="mail.template">
+            <field name="name">Recouvrement - Alerte Date Echeance</field>
+            <field name="email_from">mouhawele@gmail.com</field>
+            <field name="subject">Alerte: Date Echeance</field>
+            <field name="email_to">awele@it4life.org</field>
+            <field name="model_id" ref="recouvrement_facturation.model_owatrans_recouvrement_facturation"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<p>Bonjour,</p><br/>
+<p>Alerte date d'échéance<p><br/>
+<p>Numéro Facture: ${object.num_facture} </p>
+]]></field>
+        </record>
+
+    </data>
+</odoo>

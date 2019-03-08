@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+               
+        <record id="account_product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.normal.form.inherit.stock.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="property_account_creditor_price_difference" position="replace">
+                    <field name="property_account_creditor_price_difference" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_form_view_inherit_inherit" model="ir.ui.view">
+            <field name="name">product.normal.form.inherit.stock.inherit.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="purchase.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="property_account_creditor_price_difference" position="replace">
+                    <field name="property_account_creditor_price_difference" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_kanban_view_inherit" model="ir.ui.view">
+            <field name="name">Product Kanban inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="replace">
+                    <field name="lst_price" invisible="1" />
+                </field>
+                <xpath expr="//div[@class='oe_kanban_details']/ul" position="replace">
+                    <ul invisible="1">
+                        <li>Price: <field name="lst_price"></field></li>
+                    </ul>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="product_product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.common.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//notebook/page[1]/group/group[@name='group_standard_price']/field[@name='list_price']" position="replace">
+                    <field name="list_price" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook/page[1]/group/group[@name='group_standard_price']/label" position="replace">
+                    <label for="standard_price" groups="base.group_user" string="Prix indicatif"/>
+                </xpath>
+                <xpath expr="//div[@name='options']" position="replace">
+                    <div name="options" groups="base.group_user" invisible="1">
+                        <div>
+                            <field name="sale_ok"/>
+                            <label for="sale_ok"/>
+                        </div>
+                        <div>
+                            <field name="purchase_ok"/>
+                            <label for="purchase_ok"/>
+                        </div>
+                    </div>
+                </xpath>
+                 <!-- <xpath expr="//field[@name='type']" position="replace">
+                    <field name="type" invisible="1" />
+                 </xpath> -->
+            </field>
+        </record>
+
+
+
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase_order_form_inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header/button[@name='print_quotation' and @states='draft']" position="replace">
+                    <button 
+                        name="print_owatrans_quotation"  
+                        string="IMPRIMER LA DEMANDE DE PRIX" 
+                        type="object"
+                        states="draft"
+                        class="oe_highlight"
+                        groups="base.group_user" 
+                    />
+                </xpath>
+                <xpath expr="//header/button[@name='print_quotation' and @states='sent']" position="replace">
+                    <button 
+                        name="print_owatrans_quotation"  
+                        string="IMPRIMER LA DEMANDE DE PRIX" 
+                        type="object"
+                        states="sent"
+                        groups="base.group_user" 
+                    />
+                </xpath>
+                <xpath expr="//header/button[@name='action_rfq_send' and @states='draft']" position="replace">
+                    <button 
+                        name="action_owatrans_send_rfq"  
+                        string="ENVOYER LA DEMANDE DE PRIX PAR COURRIEL" 
+                        type="object"
+                        states="draft"
+                        context="{'send_rfq':True}"
+                        class="oe_highlight"
+                    />
+                </xpath>
+                <xpath expr="//header/button[@name='action_rfq_send' and @states='sent']" position="replace">
+                    <button 
+                        name="action_owatrans_send_rfq"  
+                        string="RE-ENVOYER LA DEMANDE DE PRIX PAR COURRIEL" 
+                        type="object"
+                        states="sent"
+                        context="{'send_rfq':True}"
+                    />
+                </xpath>
+                <xpath expr="//header/button[@name='action_rfq_send' and @states='purchase']" position="replace">
+                    <button 
+                        name="action_owatrans_send_rfq"  
+                        string="ENVOYER LA COMMANDE PAR COURRIEL" 
+                        type="object"
+                        states="purchase"
+                        context="{'send_rfq':False}"
+                    />
+                </xpath>
+                <xpath expr="//header/button[@name='action_owatrans_send_rfq' and @states='purchase']" position="after">
+                    <button 
+                        name="print_owatrans_po"  
+                        string="IMPRIMER LA COMMANDE" 
+                        type="object"
+                        states="purchase"
+                    />
+                </xpath>
+                
+                <xpath expr="//field[@name='date_order']" position="replace">
+                    <field name="date_order" widget="date"/>
+                </xpath>
+                <xpath expr="//notebook/page/field/tree/field[@name='name']" position="attributes">
+                    <attribute name='string'>Désignation</attribute>
+                </xpath>
+                <xpath expr="//notebook/page/field/tree/field[@name='product_qty']" position="replace">
+                    <field name="product_qty" digits="(20,0)"/>
+                </xpath>
+                                 
+            </field>
+        </record>
+
+
+        
+
+</odoo>
