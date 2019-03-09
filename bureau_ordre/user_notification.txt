@@ -1,0 +1,11 @@
+Subject:
+
+GEC-> Nouvelle tâche: #assignment.activityName# Courrier N°#variable.numordre#
+
+Email message:
+Bonjour,
+Message automatique de notification du logiciel de Gestion du bureau d'ordre FONGIP.
+
+Une nouvelle tâche " #assignment.activityName# " vous a été assignée par le process : #assignment.processName#.
+Merci de vous connecter sur l'application à partir du lien ci-dessous avec votre identifiant et mot de passe de connexion utilisée sur votre machine. 
+Bien cordialement.

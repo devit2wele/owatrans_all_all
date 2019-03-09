@@ -1,0 +1,453 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="owatrans_type_imputation_view_tree">
+      <field name="name">owatrans.type.imputation.tree</field>
+      <field name="model">owatrans.type_imputation</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="owatrans_imputations_view_tree">
+      <field name="name">owatrans.imputations.tree</field>
+      <field name="model">owatrans.imputations</field>
+      <field name="arch" type="xml">
+        <tree create="false" edit="true">
+          <field name="numero_ordre"/>
+          <field name="type_imputation"/>
+          <!--field name="impute_a" /-->
+          <field name="date_heure_debut"/>
+          <field name="date_heure_limite"/>
+          <field name="impute_par"/>
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="owatrans_courrier_arrive_view_tree">
+      <field name="name">owatrans.courrier.arrive.tree</field>
+      <field name="model">owatrans.courrier.arrive</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!--field name="type_expediteur"/-->
+          <field name="expediteur" />
+          <field name="objet_courrier" />
+          <field name="destinataire_interne"/>
+          <!--field name="nature_courrier" /-->
+          <!--field name="date_du_courrier"/-->
+          <field name="date_de_reception"/>
+          <!--field name="degre_confidentialite" /-->
+          <!--field name="niveau_priorite"/-->
+          <field name="numero_ordre"/>
+          <field name="enregistre_par"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    
+
+    <!-- actions opening views on models -->
+     <record model="ir.actions.act_window" id="action_enregistre_courrier">
+      <field name="name">Courrier d'arrivé</field>
+      <field name="res_model">owatrans.courrier.arrive</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('enregistre_par.user_id','=',uid)]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour enregistrer un nouveau courrier
+        </p>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="create_type_imputation">
+      <field name="name">Type d'imputation</field>
+      <field name="res_model">owatrans.type_imputation</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour creer un nouveau type d'imputation
+        </p>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="create_nature_courrier">
+      <field name="name">Nature courrier</field>
+      <field name="res_model">owatrans.nature.courrier</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour ajouter un nature courrier
+        </p>
+      </field>
+    </record>
+
+        <record model="ir.ui.view" id="owatrans_imputation_courrier_arrive_impute_view_tree">
+      <field name="name">owatrans.imputations.courrier.arrive.tree</field>
+      <field name="model">owatrans.courrier.arrive</field>
+      <field name="arch" type="xml">
+        <tree create="false" edit="true">
+          <field name="expediteur" />
+          <field name="objet_courrier" />
+          <field name="destinataire_interne"/>
+          <!--field name="nature_courrier" /-->
+          <!--field name="date_du_courrier"/-->
+          <field name="date_de_reception"/>
+          <!--field name="degre_confidentialite" /-->
+          <!--field name="niveau_priorite"/-->
+          <field name="numero_ordre"/>
+          <field name="enregistre_par"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="create_imputation">
+      <field name="name">Imputation</field>
+      <field name="res_model">owatrans.courrier.arrive</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="owatrans_imputation_courrier_arrive_impute_view_tree"/>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','=','confirm')]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour creer une nouvelle imputation
+        </p>
+      </field>
+    </record>
+
+    <!--record model="ir.actions.act_window" id="create_courrier">
+      <field name="name">Courrier arrive</field>
+      <field name="res_model">owatrans.imputations</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="owatrans_imputation_courrier_arrive_view_tree"/>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','=','draft'),('enregistre_par.user_id','=',uid)]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour enregistrer un nouveau courrier arrive
+        </p>
+      </field>
+    </record-->
+
+    <!--record model="ir.ui.view" id="owatrans_imputation_courrier_arrive_view_tree">
+      <field name="name">owatrans.imputations.courrier.arrive.tree</field>
+      <field name="model">owatrans.imputations</field>
+      <field name="arch" type="xml">
+        <tree >
+          <field name="type_expediteur"/>
+          <field name="expediteur" />
+          <field name="destinataire_interne"/>
+          <field name="nature_courrier" />
+          <field name="date_du_courrier"/>
+          <field name="degre_confidentialite" />
+          <field name="objet_courrier" />
+          <field name="niveau_priorite"/>
+        </tree>
+      </field>
+    </record-->
+    <!--*********************************************************************-->
+    
+    <!--*********************************************************************-->
+
+     <!--record id="view_imputations_new_calendar" model="ir.ui.view">
+            <field name="name">Imputations</field>
+            <field name="model">owatrans.imputations</field>
+            <field name="arch" type="xml">
+                <calendar string="Vue calendrier des imputations"
+                          date_start="date_heure_debut" date_stop="date_heure_limite"
+                          mode="month"
+                          quick_add="False" avatar_model="hr.employee">
+                    <field name="type_imputation"/>
+                </calendar>
+            </field>
+        </record-->
+
+    <record model="ir.actions.act_window" id="action_imputation_a_executer">
+      <field name="name">Imputations à exécuter</field>
+      <field name="res_model">owatrans.imputations</field>
+      <field name="view_type">form</field><!--view_imputations_new_calendar -->
+      <field name="view_id" ref="owatrans_imputations_view_tree"/>
+      <field name="view_mode">tree,form</field><!--('state','=','imputation_executee')-->
+      <field name="domain">[('state','=','impute'),('impute_a.user_id','=',uid)]</field>
+      <!--field name="domain">[('impute_a.user_id','=',uid)]</field-->
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour creer une nouvelle imputation
+        </p>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_imputation_executee">
+      <field name="name">Imputations exécutees</field>
+      <field name="res_model">owatrans.imputations</field>
+      <field name="view_type">form</field><!--view_imputations_new_calendar -->
+      <field name="view_id" ref="owatrans_imputations_view_tree"/>
+      <field name="view_mode">tree,form</field><!--('state','=','imputation_executee')-->
+      <field name="domain">[('state','=','traite'),('impute_par.user_id','=',uid)]</field>
+      <!--field name="domain">[('impute_a.user_id','=',uid)]</field-->
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour creer une nouvelle imputation
+        </p>
+      </field>
+    </record>
+
+     <!--record model="ir.actions.act_window" id="action_controle_imputation">
+      <field name="name">Controle des imputations</field>
+      <field name="res_model">owatrans.imputations</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="view_imputations_new_calendar"/>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','=','imputation_executee'),('impute_par.user_id','=',uid)]</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Cliquez ici pour creer une nouvelle imputation
+        </p>
+      </field>
+    </record-->
+
+    <record model="ir.ui.view" id="owatrans_type_imputation_view_form">
+      <field name="name">owatrans.type_imputation.form</field>
+      <field name="model">owatrans.type_imputation</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="owatrans_imputations_view_form">
+      <field name="name">owatrans.imputations.form</field>
+      <field name="model">owatrans.imputations</field>
+      <field name="arch" type="xml">
+        <form string="Imputation">
+          <header>
+            <button name="confirmer" string="Confirmer" states="draft" type="object" class="oe_highlight" modifiers="{'invisible': [['state','not in ',['draft']]]}"
+              groups="bureau_ordre.group_acc"/>
+            <button name="imputer" string="Imputer" states="confirm" type="object" class="oe_highlight" modifiers="{'invisible':[['state','in',['draft','impute','imputation_executee']]]}" groups="bureau_ordre.group_dg"
+              />
+            <button name="executer" string="Executer" states="impute" type="object" class="oe_highlight" modifiers="{'invisible':[['state','in',['draft','confirm','imputation_executee']]]}"
+              />
+            <button name="annuler" string="Annuler" type="object" class="oe_highlight" attrs="{'invisible':[('state','in',['draft','imputation_execute'])]}"/>
+            <field name="state" widget="statusbar" readonly="1" attrs="{'invisible':[('state','=','draft')]}"/>
+          </header>
+          <sheet>
+            <group attrs="{'invisible':[('state','not in',['traite'])]}">
+              <field name="controle"/>
+              <field name="motif_rejet" attrs="{'invisible':[('controle','in',['accepte'])]}"/>
+            </group>
+            <notebook>
+              <page string="Exécution de l'imputation" attrs="{'invisible':[('state','not in',['impute','traite'])]}">
+                <group>
+                  <field name="files_execution" widget="many2many_binary" />
+                  <field name="explication_sur_execution"/>
+                </group>
+              </page>
+              <page string="Imputation">
+                <group col="2">
+                  <group>
+                    <!--field name="courrier_arrive_id"/-->
+                    <field name="type_imputation"/>
+                    <field name="impute_a"/>
+                    <field name="files" widget="many2many_binary"/>
+                  </group>
+                  <group>
+                    <field name="date_heure_limite" />
+                    <field name="date_heure_debut" invisible="1" />
+                    <field name="description"/>
+                  </group>
+                </group>
+              </page>
+              <page string="Courrier d'arrivé" attrs="{'invisible':[('state','=','draft')]}">
+                <group col="2">
+                  <group>
+                    <field name="numero_ordre" readonly="1"/>
+                    <field name="type_expediteur" />
+                    <field name="expediteur" />
+                    <field name="objet_courrier"/>
+                    <field name="destinataire_interne"/>
+                  </group>
+              <group>
+                <field name="date_du_courrier"/>
+                <field name="date_de_reception"/>
+                <field name="date_enregistrement"/>
+                <field name="nature_courrier"/>
+                <field name="degre_confidentialite"/>
+                <field name="niveau_priorite"/>
+              </group>
+            </group>
+              </page>
+            </notebook>
+            
+                <!--group col="2" string="Courrier d'arrivé">
+              <group-->
+                
+                <!--field name="type_expediteur" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                <field name="expediteur" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                <field name="objet_courrier" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                <field name="destinataire_interne" attrs="{'readonly':[('state','not in',['draft'])]}"/-->
+              <!--/group-->
+              <!--group>
+                <field name="date_du_courrier" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                <field name="date_enregistrement" invisible="1"/>
+                <field name="nature_courrier" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                <field name="degre_confidentialite" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                <field name="niveau_priorite" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+              </group-->
+            <!--/group-->
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Courrier d'arrivee  -->
+    <record model="ir.ui.view" id="owatrans_courrier_arrive_view_form">
+      <field name="name">owatrans.courrier.arrive.form</field>
+      <field name="model">owatrans.courrier.arrive</field>
+      <field name="arch" type="xml">
+        <form string="Enregistrement courrier arrivé">
+          <header>
+            <button name="confirm" string="Confirmer" type="object" states="draft" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}"/>
+            <button name="imputer" string="Imputer" states="confirm" type="object" class="oe_highlight" modifiers="{'invisible':[['state','in',['draft','impute','imputation_executee']]]}"
+            groups="bureau_ordre.group_dg"
+              />
+            <!--button name="executer" string="Executer" states="impute" type="object" class="oe_highlight" modifiers="{'invisible':[['state','in',['draft','confirm','imputation_executee']]]}"
+              /-->
+            <button name="annuler" string="Annuler" type="object" states="confirm,impute" class="oe_highlight" modifiers="{'invisible':[['state','in',['draft','imputation_executee']]]}"/>
+            <field name="state" widget="statusbar" readonly="1"/>
+          </header>
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="numero_ordre" attrs="{'invisible':[('state','=','draft')]}" 
+                  readonly="1"/>
+                <field name="type_expediteur" />
+                <field name="expediteur" />
+                <field name="objet_courrier"/>
+                <field name="destinataire_interne"/>
+              </group>
+              <group>
+                <field name="date_du_courrier"/>
+                <field name="date_de_reception"/>
+                <field name="date_enregistrement" invisible="1"/>
+                <field name="nature_courrier"/>
+                <field name="degre_confidentialite"/>
+                <field name="niveau_priorite"/>
+              </group>
+            </group>
+            <group>
+              <field name="imputations_ids" nolabel="1" attrs="{'invisible':[('state','in',['draft'])]}" groups="bureau_ordre.group_dg">
+                <tree>
+                  <field name="type_imputation"/>
+                  <field name="impute_a" />
+                  <field name="date_heure_debut"/>
+                  <field name="date_heure_limite"/>
+                </tree>
+              </field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+   
+
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="bureau_ordre.action_server">
+      <field name="name">bureau_ordre server</field>
+      <field name="model_id" ref="model_bureau_ordre_bureau_ordre"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    
+    <menuitem name="Bureau d'ordre" 
+              id="bureau_ordre.menu_root"
+              web_icon="bureau_ordre,static/description/icon.png"
+              groups="base.group_user,bureau_ordre.group_acc,bureau_ordre.group_dg"/>
+    
+    <!-- menu categories groups="base.group_user,bureau_ordre.group_acc,bureau_ordre.group_dg"-->
+    <menuitem name="Courrier d'arrive"    
+              id="bureau_ordre.courrier" 
+              parent="bureau_ordre.menu_root"
+              sequence="5"
+              />
+    <menuitem name="Courrier arrivé" 
+              id="bureau_ordre.courrier_list" 
+              parent="bureau_ordre.courrier"
+              action="action_enregistre_courrier"
+              sequence="30"
+              />
+    
+    <menuitem name="Gestion des imputations" 
+              id="bureau_ordre.imputations" 
+              parent="bureau_ordre.menu_root"
+              sequence="10"
+        
+              />
+    <menuitem name="Configuration" 
+              id="bureau_ordre.configuration" 
+              parent="bureau_ordre.menu_root"
+              sequence="20"
+              />
+    <menuitem name="Type d'imputation" 
+              id="bureau_ordre.imputations_type" 
+              parent="bureau_ordre.configuration"
+              action="create_type_imputation"
+              sequence="1"
+              />
+    <menuitem name="Nature courrier" 
+              id="bureau_ordre.nature_courrier" 
+              parent="bureau_ordre.configuration"
+              action="create_nature_courrier"
+              sequence="2"
+              />
+    
+    <!-- actions -->
+    
+    <menuitem name="Imputations à faire" 
+              id="bureau_ordre.imputations_list" 
+              parent="bureau_ordre.imputations"
+              action="create_imputation" 
+              sequence="30"
+              groups="group_dg"
+              />
+        <menuitem name="Imputations à exécuter" 
+              id="bureau_ordre.imputations_a_executer" 
+              parent="bureau_ordre.imputations"
+              action="action_imputation_a_executer"
+              sequence="40"
+              />
+        <menuitem name="Imputations à controler" 
+              id="bureau_ordre.imputations_executees" 
+              parent="bureau_ordre.imputations"
+              action="action_imputation_executee"
+              sequence="50"
+              groups="group_dg"
+              />
+
+        <!--menuitem name="Controle les imputations" 
+              id="bureau_ordre.imputations_a_controle" 
+              parent="bureau_ordre.imputations"
+              action="action_controle_imputation"
+              sequence="50"
+              /-->
+    
+    
+  </data>
+</odoo>

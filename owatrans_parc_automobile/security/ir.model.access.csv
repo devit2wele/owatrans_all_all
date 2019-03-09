@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_owatrans_type_macaron,access_owatrans_type_macaron,model_owatrans_type_macaron,,1,1,1,1
+access_owatrans_macaron,access_owatrans_macaron,model_owatrans_macaron,,1,1,1,1
+access_fleet_vehicle,access_fleet_vehicle,model_fleet_vehicle,,1,1,1,1
+access_owatrans_gps,access_owatrans_gps,model_owatrans_gps,,1,1,1,1
+access_owatrans_maintenance_vehicule,access_owatrans_maintenance_vehicule,model_owatrans_maintenance_vehicule,,1,1,1,1
+access_owatrans_reservation,access_owatrans_reservation,model_owatrans_reservation,,1,1,1,1
+access_owatrans_objectif_mission,access_owatrans_objectif_mission,model_owatrans_objectif_mission,,1,1,1,1
+access_owatrans_mission,access_owatrans_mission,model_owatrans_mission,,1,1,1,1
+access_owatrans_hr_employee,access_owatrans_hr_employee,model_hr_employee,,1,1,1,1
