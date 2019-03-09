@@ -1,0 +1,61 @@
+<odoo>
+<data>
+
+	<record id="imputation_workflow" model="workflow">
+	    <field name="name">imputation.workflow</field>
+	    <field name="osv">owatrans.imputations</field>
+	    <field name="on_create">True</field>
+	</record>
+
+	<record id="activity_draft" model="workflow.activity">
+	    <field name="wkf_id" ref="imputation_workflow"/>
+	    <field name="flow_start">True</field>
+	    <field name="name">draft</field>
+	    <!--field name="kind">function</field>
+	    <field name="action">imputation_confirm()</field-->
+	</record>
+	<record id="activity_confirm" model="workflow.activity">
+	    <field name="wkf_id" ref="imputation_workflow"/>
+	    <!--field name="flow_stop">True</field-->
+	    <field name="name">confirm</field>
+	    <field name="kind">function</field>
+	    <field name="action">confirmer()</field>
+	</record>
+
+	<record id="activity_impute" model="workflow.activity">
+	    <field name="wkf_id" ref="imputation_workflow"/>
+	    <!--field name="flow_stop">True</field-->
+	    <field name="name">impute</field>
+	    <field name="kind">function</field>
+	    <field name="action">imputer()</field>
+	</record>
+ 
+  <record id="activity_execute" model="workflow.activity">
+	    <field name="wkf_id" ref="imputation_workflow"/>
+	    <field name="flow_stop">True</field>
+	    <field name="name">imputation_ok</field>
+	    <field name="kind">function</field>
+	    <field name="action">executer()</field>
+	</record>
+ 
+ <!-- workflow transition -->
+
+	<record id="trans_draft_confirm" model="workflow.transition">
+	    <field name="act_from" ref="activity_draft"/>
+	    <field name="act_to" ref="activity_confirm"/>
+      <!--field name="signal">confirmer</field-->
+	</record>
+	<record id="trans_confirm_imputer" model="workflow.transition">
+	    <field name="act_from" ref="activity_confirm"/>
+	    <field name="act_to" ref="activity_impute"/>
+      <!--field name="signal">imputer</field-->
+	</record>
+  <record id="trans_impute_execute" model="workflow.transition">
+	    <field name="act_from" ref="activity_impute"/>
+	    <field name="act_to" ref="activity_execute"/>
+      <!--field name="signal">executer</field-->
+      <!--field name="group_id" ref="base.group_hr_user" /-->
+	</record>
+
+</data>
+</odoo>
